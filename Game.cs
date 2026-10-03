@@ -6,7 +6,7 @@ namespace CasinoBingoCLI
 {
     public static class Game
     {
-        static private Random _random = new();
+        static private readonly Random gameRandom = new();
         static private readonly List<BingoCard> _bingoCardCollection = new List<BingoCard>();
 
         public static List<BingoCard> BingoCardCollection => _bingoCardCollection;
@@ -16,7 +16,7 @@ namespace CasinoBingoCLI
             // int numCardsToMake = 3;
             for (int i = 0; i < 1; i++)
             {
-                BingoCardCollection.Add(new BingoCard(_random));
+                BingoCardCollection.Add(new BingoCard(gameRandom));
             }
         }
         static public void PrintBingoCardToScreen()
@@ -41,7 +41,6 @@ namespace CasinoBingoCLI
                         }
                         Console.WriteLine(Environment.NewLine);
                     }
-                    Console.WriteLine(Environment.NewLine);
                 }
                 break;
             }
@@ -50,6 +49,9 @@ namespace CasinoBingoCLI
         static public void Run()
         {
             Game.PrintBingoCardToScreen();
+            BingoBall ball = new(gameRandom);
+
+            ball.PrintBingoBallToScreen();
         }
     }
 }
