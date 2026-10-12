@@ -11,9 +11,9 @@ namespace CasinoBingoCLI
         private readonly int[,] _numbersMatrix = new int[5, 5];
         private List<int> _usedNumbers = new List<int>();
 
-        public BingoCard(Random random)
+        public BingoCard()
         {
-            _serialNumber = random.Next(100000, 1000000);
+            _serialNumber = Random.Shared.Next(100000, 1000000);
             int least = 1;
             int most = 16;
             for (int j = 0; j < _numbersMatrix.GetLength(1); j++)
@@ -23,7 +23,7 @@ namespace CasinoBingoCLI
                 {
                     do
                     {
-                        int num = random.Next(least, most);
+                        int num = Random.Shared.Next(least, most);
                         if (i == 2 && j == 2) // [2,2] is the free space in the middle of a [5,5] grid
                         {
                             _numbersMatrix[i, j] = 0; // assign it 0
