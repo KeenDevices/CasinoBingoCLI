@@ -40,7 +40,6 @@ namespace CasinoBingoCLI
                         }
                         Console.WriteLine(Environment.NewLine);
                     }
-                    Console.WriteLine(Environment.NewLine);
                 }
                 break;
             }
@@ -49,6 +48,10 @@ namespace CasinoBingoCLI
         static public void Run()
         {
             Game.PrintBingoCardToScreen();
+
+            BingoBall ball = new();
+
+            ball.PrintBingoBallToScreen();
         }
     }
 }
