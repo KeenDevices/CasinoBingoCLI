@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
+using System.Numerics;
 using System.Text;
 
 namespace CasinoBingoCLI
@@ -8,33 +9,77 @@ namespace CasinoBingoCLI
     public class BingoCard
     {
         private readonly int _serialNumber;
-        private readonly int[,] _numbersMatrix = new int[5, 5];
-        private List<int> _usedNumbers = new List<int>();
+        /// <summary>
+        /// _undabbedCard is for archiving and is not in play after creation
+        /// </summary>
+        private readonly int[,] _undabbedCard = new int[5, 5];
+        /// <summary>
+        /// _dabbedCard is for tracking matching bingo balls as they're drawn, pattern recogniztion
+        /// and the presentation to the user
+        /// </summary>
+        private string[,] _dabbedCard = new string[5, 5];
+        private List<int> _usedNumbers = [];
 
         public BingoCard()
         {
             _serialNumber = Random.Shared.Next(100000, 1000000);
+
+            makeUnDabbedCard();
+            makeDabbedCard();
+        }
+
+        // This is read-only getter using the lambda operator
+        public int[,] UndabbedCard => _undabbedCard;
+        public string[,] DabbedCard => _dabbedCard;
+        public int SerialNumber => _serialNumber;
+
+        private List<int> usedNumbers => _usedNumbers;
+
+        public void PrintToCLI()
+        {
+            for (int i = 0; i < UndabbedCard.GetLength(0) ; i++)
+            {
+                for(int j = 0; j < UndabbedCard.GetLength(1); j++)
+                {
+                    Console.Write($"{UndabbedCard[i, j]},");
+                    if (j == 4)
+                    {
+                        Console.WriteLine($"{Environment.NewLine}");
+                    }
+                }
+            }
+            
+        }
+
+        private void makeDabbedCard()
+        {
+            // Implement this function
+            throw new NotImplementedException();
+        }
+
+        private void makeUnDabbedCard()
+        {
             int least = 1;
             int most = 16;
-            for (int j = 0; j < _numbersMatrix.GetLength(1); j++)
+            for (int j = 0; j < UndabbedCard.GetLength(1); j++)
             {
-
-                for (int i = 0; i < _numbersMatrix.GetLength(0); i++)
+                // B = 0, I = 1, N = 2, G = 3, O = 4
+                for (int i = 0; i < UndabbedCard.GetLength(0); i++)
                 {
                     do
                     {
                         int num = Random.Shared.Next(least, most);
                         if (i == 2 && j == 2) // [2,2] is the free space in the middle of a [5,5] grid
                         {
-                            _numbersMatrix[i, j] = 0; // assign it 0
-                            break; 
+                            UndabbedCard[i, j] = 0; // assign it 0
+                            break;
                         }
                         else
                         {
-                            if (!_usedNumbers.Contains(num))
+                            if (!usedNumbers.Contains(num))
                             {
-                                _numbersMatrix[i, j] = num;
-                                _usedNumbers.Add(num);
+                                UndabbedCard[i, j] = num;
+                                usedNumbers.Add(num);
                                 break;
                             }
                         }
@@ -43,28 +88,20 @@ namespace CasinoBingoCLI
                 }
                 least += 15;
                 most += 15;
-                _usedNumbers.Clear();
+                usedNumbers.Clear();
             }
         }
 
-        // This is read-only getter using the lambda operator
-        public int[,] NumbersMatrix => _numbersMatrix;
-        public int SerialNumber => _serialNumber;
-
-        public void PrintToCLI()
+        public void PrintDabbedCardToCLI()
         {
-            for (int i = 0; i < NumbersMatrix.GetLength(0) ; i++)
-            {
-                for(int j = 0; j < NumbersMatrix.GetLength(1); j++)
-                {
-                    Console.Write($"{NumbersMatrix[i, j]},");
-                    if (j == 4)
-                    {
-                        Console.WriteLine($"{Environment.NewLine}");
-                    }
-                }
-            }
-            
+            printHeader();
+            throw new NotImplementedException("Print out the card as an array of strings.");
+        }
+
+        // This could return a string
+        private void printHeader()
+        {
+            throw new NotImplementedException();
         }
     }
 }

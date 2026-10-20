@@ -24,10 +24,10 @@ namespace CasinoBingoCLI
             {
                 foreach (BingoCard card in BingoCardCollection)
                 {
-                    for (int i = 0; i < card.NumbersMatrix.GetLength(0); i++)
+                    for (int i = 0; i < card.UndabbedCard.GetLength(0); i++)
                     {
                         Console.Write("|");
-                        for (int j = 0; j < card.NumbersMatrix.GetLength(1); j++)
+                        for (int j = 0; j < card.UndabbedCard.GetLength(1); j++)
                         {
                             if (i == 2 && j == 2)
                             {
@@ -35,7 +35,7 @@ namespace CasinoBingoCLI
                             }
                             else
                             {
-                                Console.Write($"{card.NumbersMatrix[i, j].ToString("D2")}|");
+                                Console.Write($"{card.UndabbedCard[i, j].ToString("D2")}|");
                             }
                         }
                         Console.WriteLine(Environment.NewLine);
@@ -52,6 +52,11 @@ namespace CasinoBingoCLI
             BingoBall ball = new();
 
             ball.PrintBingoBallToScreen();
+
+            foreach(var card in BingoCardCollection)
+            {
+                //Print bingo cards here.
+            }
         }
     }
 }
