@@ -53,8 +53,24 @@ namespace CasinoBingoCLI
 
         private void makeDabbedCard()
         {
-            // Implement this function
-            throw new NotImplementedException();
+            //Going through the undabbed array 
+            for(int i = 0; i < _undabbedCard.GetLength(0); i++)
+            {
+                for(int j = 0; j <_undabbedCard.GetLength(1); j++)
+                {
+                    //Once in Array checking if the space is a free space if so then we change the dabbed card at that location to an X
+                    if(_undabbedCard[i,j] == 0)
+                    {
+                        _dabbedCard[i,j] = "X";
+
+                    }
+                    //Putting values from undabbed card into dabbed card as a string instead an Int
+                    else
+                    {
+                        _dabbedCard[i,j] = _undabbedCard[i,j].ToString();
+                    }
+                }
+            }
         }
 
         private void makeUnDabbedCard()
@@ -93,9 +109,17 @@ namespace CasinoBingoCLI
         }
 
         public void PrintDabbedCardToCLI()
-        {
-            printHeader();
-            throw new NotImplementedException("Print out the card as an array of strings.");
+        {   
+
+            //Printing out the dabbed card 
+            for(int i = 0; i < _dabbedCard.GetLength(0); i++)
+            {
+                for(int j = 0; j <_dabbedCard.GetLength(1); j++)
+                {
+                    Console.Write($"{_dabbedCard[i,j], -6}");
+                }
+                Console.WriteLine();
+            }
         }
 
         // This could return a string
