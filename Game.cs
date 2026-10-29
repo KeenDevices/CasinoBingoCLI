@@ -55,7 +55,7 @@ namespace CasinoBingoCLI
 
             foreach(var card in BingoCardCollection)
             {
-                //Print bingo cards here.
+                card.PrintDabbedCardToCLI();
             }
         }
     }

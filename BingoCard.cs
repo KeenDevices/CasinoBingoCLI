@@ -24,8 +24,8 @@ namespace CasinoBingoCLI
         {
             _serialNumber = Random.Shared.Next(100000, 1000000);
 
-            makeUnDabbedCard();
-            makeDabbedCard();
+            MakeUnDabbedCard();
+            MakeDabbedCard();
         }
 
         // This is read-only getter using the lambda operator
@@ -51,7 +51,7 @@ namespace CasinoBingoCLI
             
         }
 
-        private void makeDabbedCard()
+        private void MakeDabbedCard()
         {
             //Going through the undabbed array 
             for(int i = 0; i < _undabbedCard.GetLength(0); i++)
@@ -61,19 +61,19 @@ namespace CasinoBingoCLI
                     //Once in Array checking if the space is a free space if so then we change the dabbed card at that location to an X
                     if(_undabbedCard[i,j] == 0)
                     {
-                        _dabbedCard[i,j] = "X";
+                        _dabbedCard[i,j] = " X";
 
                     }
                     //Putting values from undabbed card into dabbed card as a string instead an Int
                     else
                     {
-                        _dabbedCard[i,j] = _undabbedCard[i,j].ToString();
+                        _dabbedCard[i,j] = _undabbedCard[i,j].ToString("D2");
                     }
                 }
             }
         }
 
-        private void makeUnDabbedCard()
+        private void MakeUnDabbedCard()
         {
             int least = 1;
             int most = 16;
@@ -109,23 +109,26 @@ namespace CasinoBingoCLI
         }
 
         public void PrintDabbedCardToCLI()
-        {   
+        {
+            PrintDabbedCardHeader();
 
             //Printing out the dabbed card 
             for(int i = 0; i < _dabbedCard.GetLength(0); i++)
             {
+                Console.Write("|");
                 for(int j = 0; j <_dabbedCard.GetLength(1); j++)
                 {
-                    Console.Write($"{_dabbedCard[i,j], -6}");
+                    Console.Write($"{_dabbedCard[i,j]}|");
                 }
-                Console.WriteLine();
+                Console.Write(Environment.NewLine);
             }
         }
 
         // This could return a string
-        private void printHeader()
+        private void PrintDabbedCardHeader()
         {
-            throw new NotImplementedException();
+            string header = " B  I  N  G  O";
+            Console.WriteLine(header);
         }
     }
 }
