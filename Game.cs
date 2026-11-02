@@ -47,9 +47,12 @@ namespace CasinoBingoCLI
 
         static public void Run()
         {
-            Game.PrintBingoCardToScreen();
-
             BingoBall ball = new();
+
+            foreach(var card in BingoCardCollection)
+            {
+                int?[,] found = card.FindNumber(ball);
+            }
 
             ball.PrintBingoBallToScreen();
 

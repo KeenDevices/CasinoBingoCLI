@@ -130,5 +130,17 @@ namespace CasinoBingoCLI
             string header = " B  I  N  G  O";
             Console.WriteLine(header);
         }
+
+        public int?[,] FindNumber(BingoBall ball)
+        {
+            // Your solution here.
+            return new int?[1, 1];
+        }
+
+        private void MarkXDabbedCard()
+        {
+            // Your solution here.
+        }
     }
 }
+

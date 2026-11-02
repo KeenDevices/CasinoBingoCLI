@@ -12,6 +12,7 @@
             Game.Run();
 
             // Close
+            // Game.End()
         }
     }
 }
