@@ -53,6 +53,7 @@ namespace CasinoBingoCLI
         public void PrintBingoBallToScreen()
         {
             Console.WriteLine($"Next number: {BallNumberToString(Number)}");
+            Console.Write(Environment.NewLine);
         }
     }
 }
