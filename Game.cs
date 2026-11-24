@@ -51,7 +51,7 @@ namespace CasinoBingoCLI
 
             foreach(var card in BingoCardCollection)
             {
-                int?[,] found = card.FindNumber(ball);
+                int?[] found = card.FindNumber(ball);
             }
 
             ball.PrintBingoBallToScreen();

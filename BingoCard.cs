@@ -54,20 +54,20 @@ namespace CasinoBingoCLI
         private void MakeDabbedCard()
         {
             //Going through the undabbed array 
-            for(int i = 0; i < _undabbedCard.GetLength(0); i++)
+            for(int i = 0; i < UndabbedCard.GetLength(0); i++)
             {
-                for(int j = 0; j <_undabbedCard.GetLength(1); j++)
+                for(int j = 0; j <UndabbedCard.GetLength(1); j++)
                 {
                     //Once in Array checking if the space is a free space if so then we change the dabbed card at that location to an X
-                    if(_undabbedCard[i,j] == 0)
+                    if(UndabbedCard[i,j] == 0)
                     {
-                        _dabbedCard[i,j] = " X";
+                        DabbedCard[i,j] = " X";
 
                     }
                     //Putting values from undabbed card into dabbed card as a string instead an Int
                     else
                     {
-                        _dabbedCard[i,j] = _undabbedCard[i,j].ToString("D2");
+                        DabbedCard[i,j] = UndabbedCard[i,j].ToString("D2");
                     }
                 }
             }
@@ -113,12 +113,12 @@ namespace CasinoBingoCLI
             PrintDabbedCardHeader();
 
             //Printing out the dabbed card 
-            for(int i = 0; i < _dabbedCard.GetLength(0); i++)
+            for(int i = 0; i < DabbedCard.GetLength(0); i++)
             {
                 Console.Write("|");
-                for(int j = 0; j <_dabbedCard.GetLength(1); j++)
+                for(int j = 0; j <DabbedCard.GetLength(1); j++)
                 {
-                    Console.Write($"{_dabbedCard[i,j]}|");
+                    Console.Write($"{DabbedCard[i,j]}|");
                 }
                 Console.Write(Environment.NewLine);
             }
@@ -131,16 +131,86 @@ namespace CasinoBingoCLI
             Console.WriteLine(header);
         }
 
-        public int?[,] FindNumber(BingoBall ball)
+        public int?[] FindNumber(BingoBall ball)
         {
-            // Your solution here.
-            return new int?[1, 1];
+            int? row = null;
+            int column;
+
+            if (ball.Number > 0 && ball.Number < 16)
+            {
+                column = 0;
+            }
+            else if (ball.Number < 31)
+            {
+                column = 1;
+            }
+            else if (ball.Number < 46)
+            {
+                column = 2;
+            }
+            else if (ball.Number < 61)
+            {
+                column = 3;
+            }
+            else if (ball.Number < 76)
+            {
+                column = 4;
+            }
+            else
+            {
+                throw new ArgumentException("Error, invalid value for the bingo card.");
+            }
+            for (int i = 0; i < 5; i++)
+            {
+                if (UndabbedCard[i, column] == ball.Number)
+                {
+                    row = i;
+
+                }
+                break;
+
+            }
+            int?[] arrHolder = [row, column];
+            return arrHolder;
         }
 
-        private void MarkXDabbedCard()
+        private void MarkXDabbedCard(BingoBall ball)
         {
-            // Your solution here.
+             int?[] location = FindNumber(ball);
+            if (location[0] == null)
+            {
+                return;
+            }
+            else
+            {
+                DabbedCard[location[0].GetValueOrDefault(), location[1].GetValueOrDefault()] = "X";
+            }
+
         }
+        private void PatternRecognizer(BingoBall ball)
+        {
+            //Go through undabbed card to recognize patterns. 
+            List<int[]> possibleBingo = new List<int[]>();
+
+            int?[] location = FindNumber(ball);
+            if (location[0] == null)
+            {
+
+                return;
+            }
+
+            else {
+                int row = location[0].GetValueOrDefault();
+                int column = location[1].GetValueOrDefault();
+                for (int i = 0; i < 5; i++)
+                {
+                    possibleBingo.Add(new int[] { row, i });
+                    possibleBingo.Add(new int[] { i, column });
+
+                }
+            
+            }
     }
+}
 }
 
